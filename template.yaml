@@ -22,7 +22,8 @@ Resources:
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
-              - Effect: Allow
+              - Sid: DomainExecutionRoleStatement
+                Effect: Allow
                 Action:
                   - datazone:GetDomain
                   - datazone:ListProjects
@@ -57,6 +58,16 @@ Resources:
                   - datazone:SearchGroupProfiles
                   - datazone:GetUserProfile
                   - datazone:GetGroupProfile
+                Resource: '*'
+              - Sid: RAMResourceShareStatement
+                Effect: Allow
+                Action: ram:GetResourceShareAssociations
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - bedrock:InvokeModel
+                  - bedrock:InvokeModelWithResponseStream
+                  - bedrock:GetFoundationModelAvailability
                 Resource: '*'
   BedrockStudioProvisioningRole:
     Type: AWS::IAM::Role
